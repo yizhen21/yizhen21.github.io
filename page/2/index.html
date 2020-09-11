@@ -146,7 +146,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/6/">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/11%E3%80%81%E7%BC%93%E5%AD%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -160,7 +160,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/09/6/" class="post-title-link" itemprop="url">六、自定义属性</a>
+            <a href="/2020/09/09/11%E3%80%81%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">十一、缓存</a>
         </h2>
 
         <div class="post-meta">
@@ -171,8 +171,576 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-09 01:40:17 / 修改时间：01:53:54" itemprop="dateCreated datePublished" datetime="2020-09-09T01:40:17+08:00">2020-09-09</time>
+              <time title="创建时间：2020-09-09 13:38:17 / 修改时间：16:03:36" itemprop="dateCreated datePublished" datetime="2020-09-09T13:38:17+08:00">2020-09-09</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="十一、缓存"><a href="#十一、缓存" class="headerlink" title="十一、缓存"></a>十一、缓存</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="1-概念："><a href="#1-概念：" class="headerlink" title="1.概念："></a>1.概念：</h3><p>使用HTML5，通过创建 cache manifest 文件，可以轻松地创建 web应用的离线版本</p>
+<h3 id="2-优势："><a href="#2-优势：" class="headerlink" title="2.优势："></a>2.优势：</h3><p>a）可配置需要缓存的资源</p>
+<p>b）网络无连接应用仍可用</p>
+<p>c）本地读取缓存资源，提升访问速度，增强用户体验</p>
+<p>d）减少请求，缓解服务器负担</p>
+<h3 id="3-Cache-Manifest-基础："><a href="#3-Cache-Manifest-基础：" class="headerlink" title="3.Cache Manifest 基础："></a>3.Cache Manifest 基础：</h3><p>a）如需启用应用程序缓存，请在文档的<html>标签中包含manifest属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">！DOCTYPE</span> <span class="attr">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">&quot;demo.appcache&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>b）每个指定了manifest的页面在用户对其访问时都会被缓存。如果未指定manifest属性，则页面不会被缓存（除非在manifest文件中直接指定了该页面）。</p>
+<p>c）manifest 文件的建议的文件扩展名是：”.appcache”。</p>
+<p>d）注意，manifest 文件需要配置正确的MIME-type，即”text/cache-<br>manifest”。必须在web 服务器上进行配置</p>
+<h3 id="4-Manifest文件："><a href="#4-Manifest文件：" class="headerlink" title="4.Manifest文件："></a>4.Manifest文件：</h3><p>a）概念：manifest文件是简单的文本文件，它告知浏览器被缓存的内容（以及不缓存的内容）</p>
+<p>b）manifest 文件可分为三个部分</p>
+<blockquote>
+<p>CACHE MANIFEST-开始<br>CACHE在此标题下列出的文件将在首次下载后进行缓存<br>NETWORK-在此标题下列出的文件需要与服务器的连接，且不会被缓存<br>FALLBACK-在此标题下列出的文件规定当页面无法访问时的回退页面（比如404页面）</p>
+</blockquote>
+<h2 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h2><h3 id="主体"><a href="#主体" class="headerlink" title="主体"></a>主体</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- manifest=&quot;应用程序缓存清单文件的路径建议文件的扩展名是appcache，这个文件的本质就是一个文本文件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">htmllang=&quot;en&quot;</span> <span class="attr">manifest</span>=<span class="string">&quot;demo.appcache&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">            img &#123;</span><br><span class="line">                width: 300px;</span><br><span class="line">                display: block;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;../images/11.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;../images/12.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;../images/13.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;../images/14.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Manifest文件"><a href="#Manifest文件" class="headerlink" title="Manifest文件"></a>Manifest文件</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line">#上面一句代码必须是当前文档的第一句</span><br><span class="line">#后面写注释</span><br><span class="line">#需要缓存的文件清单列表</span><br><span class="line">CACHE：</span><br><span class="line">#下面就是需要缓存的清单列表</span><br><span class="line">../images/11.jpg</span><br><span class="line">../images/12-jpgl</span><br><span class="line"># *:代表所有文件</span><br><span class="line">#配置每一次都需要重新从服务器获取的文件清单列表</span><br><span class="line">NETWORK：</span><br><span class="line">./images/13.jpg</span><br><span class="line">#配置如果文件无法获取则使用指定的文件进行替代</span><br><span class="line">FALLBACK：</span><br><span class="line">./images/14.jpg../images/banner_1.jpg</span><br><span class="line"># /:代表所有文件</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/10%E3%80%81web%E5%AD%98%E5%82%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="一真">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一真的小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/09/10%E3%80%81web%E5%AD%98%E5%82%A8/" class="post-title-link" itemprop="url">十、web存储</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-09 13:37:17 / 修改时间：13:52:39" itemprop="dateCreated datePublished" datetime="2020-09-09T13:37:17+08:00">2020-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="十、web存储"><a href="#十、web存储" class="headerlink" title="十、web存储"></a>十、web存储</h1><h2 id="1-sessionstorage的使用"><a href="#1-sessionstorage的使用" class="headerlink" title="1.sessionstorage的使用"></a>1.sessionstorage的使用</h2><h3 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">sessionstorage的使用：存储数据到本地。存储的容量5mb左右。</span></span><br><span class="line"><span class="comment">setItem（key，value）：存储数据，以键值对的方式存储</span></span><br><span class="line"><span class="comment">getItem（key）：获取数据，通过指定名称的key获取对应的value值</span></span><br><span class="line"><span class="comment">removeItem（key）：删除数据，通过指定名称key删除对应的值</span></span><br><span class="line"><span class="comment">clear（）：清空所有存储的内容&lt;br&gt; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;userName&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;设置数据&quot;</span> <span class="attr">id</span>=<span class="string">&quot;setData&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;获取数据&quot;</span> <span class="attr">id</span>=<span class="string">&quot;getData&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;删除数据&quot;</span> <span class="attr">id</span>=<span class="string">&quot;removeData&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 存储数据</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;#setData&quot;</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 获取用户名</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#userName&quot;</span>).value;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 存储数据</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">window</span>.sessionStorage.setItem(<span class="string">&quot;userName&quot;</span>, name);</span></span><br><span class="line">            &#125;</span><br><span class="line"><span class="javascript">         <span class="comment">// 获取数据</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;#getData&quot;</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> name = <span class="built_in">window</span>.sessionStorage.getItem(<span class="string">&quot;userName&quot;</span>);</span></span><br><span class="line">                alert(name);</span><br><span class="line">            &#125;</span><br><span class="line"><span class="javascript">         <span class="comment">// 删除数据</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;#removeData&quot;</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.sessionStorage.removeItem(<span class="string">&quot;userName&quot;</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">onclick</td>
+<td align="center">事件会在元素被点击时发生</td>
+</tr>
+<tr>
+<td align="center">value</td>
+<td align="center">表单被提交时被发送到服务器的值</td>
+</tr>
+<tr>
+<td align="center">sessionStorage</td>
+<td align="center">存储数据到本地;存储的容量5mb左右</td>
+</tr>
+<tr>
+<td align="center">setItem</td>
+<td align="center">存储数据，以键值对的方式存储</td>
+</tr>
+<tr>
+<td align="center">getItem</td>
+<td align="center">获取数据，通过指定名称的key获取对应的value值</td>
+</tr>
+<tr>
+<td align="center">alert</td>
+<td align="center">用于显示带有一条指定消息和一个 <strong>确认</strong> 按钮的警告框</td>
+</tr>
+<tr>
+<td align="center">removeItem</td>
+<td align="center">删除数据，通过指定名称key删除对应的值</td>
+</tr>
+</tbody></table>
+<h2 id="2-localstorage的使用"><a href="#2-localstorage的使用" class="headerlink" title="2.localstorage的使用"></a>2.localstorage的使用</h2><h3 id="写法-1"><a href="#写法-1" class="headerlink" title="写法"></a>写法</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- localstorage的使用：</span></span><br><span class="line"><span class="comment">1.存储的内容大概20mb</span></span><br><span class="line"><span class="comment">2.不同浏览器不能共享数据。但是在同一个浏览器的不同窗口中可以共享数据</span></span><br><span class="line"><span class="comment">3.永久生效，它的数据是存储在硬盘上，并不会随着页面或者浏览器的关闭而清除</span></span><br><span class="line"><span class="comment">setItem（key，value）：存储数据，以键值对的方式存储</span></span><br><span class="line"><span class="comment">getItem（key）：获取数据，通过指定名称的key获取对应的value值</span></span><br><span class="line"><span class="comment">removeItem（key）：删除数据，通过指定名称key删除对应的值</span></span><br><span class="line"><span class="comment">clear（）：清空所有存储的内容&lt;br&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;userName&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;设置数据&quot;</span> <span class="attr">id</span>=<span class="string">&quot;setData&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;获取数据&quot;</span> <span class="attr">id</span>=<span class="string">&quot;getData&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;删除数据&quot;</span> <span class="attr">id</span>=<span class="string">&quot;removeData&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.querySelector(<span class="string">&quot;#setData&quot;</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> name = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#userName&quot;</span>).value;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">/*使用localStorage存储数据*/</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.localstorage.setItem(<span class="string">&quot;userName&quot;</span>, name);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="javascript">        <span class="comment">/*获取数据*/</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.querySelector(<span class="string">&quot;#getData&quot;</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> name = <span class="built_in">window</span>.localstorage.getItem(<span class="string">&quot;userName&quot;</span>)</span></span><br><span class="line">            alert(name);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="javascript">        <span class="comment">/*清除数据*/</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.querySelector(<span class="string">&quot;#removeData&quot;</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.localstorage.removeItem(<span class="string">&quot;userName&quot;</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">localstorage</td>
+<td align="center">存储在硬盘;大概20mb</td>
+</tr>
+<tr>
+<td align="center">setItem</td>
+<td align="center">存储数据，以键值对的方式存储</td>
+</tr>
+<tr>
+<td align="center">getItem</td>
+<td align="center">获取数据，通过指定名称的key获取对应的value值</td>
+</tr>
+<tr>
+<td align="center">alert</td>
+<td align="center">用于显示带有一条指定消息和一个 <strong>确认</strong> 按钮的警告框</td>
+</tr>
+<tr>
+<td align="center">removeData</td>
+<td align="center">删除数据，通过指定名称key删除对应的值</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/9%E3%80%81%E6%8B%96%E6%8B%BD%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="一真">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一真的小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/09/9%E3%80%81%E6%8B%96%E6%8B%BD%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">九、拖拽接口</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-09 13:36:17" itemprop="dateCreated datePublished" datetime="2020-09-09T13:36:17+08:00">2020-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-11 16:21:12" itemprop="dateModified" datetime="2020-09-11T16:21:12+08:00">2020-09-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="九、拖拽接口"><a href="#九、拖拽接口" class="headerlink" title="九、拖拽接口"></a>九、拖拽接口</h1><p>样例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;div1&quot;</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;pe&quot;</span> <span class="attr">draggable</span>=<span class="string">&quot;true&quot;</span>&gt;</span>拖拖<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;div2&quot;</span> <span class="attr">id</span>=<span class="string">&quot;div2&quot;</span>&gt;</span>来<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> p = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#pe&quot;</span>);</span></span><br><span class="line"><span class="javascript">        p.ondragstart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">&quot;ondragstart&quot;</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="javascript">        p.ondragend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">&quot;ondragend&quot;</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="javascript">        p.ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">&quot;ondragleave&quot;</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="javascript">        p.ondrag = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">&quot;ondrag&quot;</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th align="center">拖拽元素对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ondrag</td>
+<td align="center">应用于拖拽元素，整个拖拽过程都会调用</td>
+</tr>
+<tr>
+<td align="center">ondragstart</td>
+<td align="center">应用于拖拽元素，当拖拽开始时调用</td>
+</tr>
+<tr>
+<td align="center">ondragleave</td>
+<td align="center">应用于拖拽元素，当鼠标离开拖拽元素时调用</td>
+</tr>
+<tr>
+<td align="center">ondragend</td>
+<td align="center">应用于拖拽元素，当拖拽结束时调用</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">目标元素对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ondragenter</td>
+<td align="center">应用于目标元素，当拖拽元素进入时调用</td>
+</tr>
+<tr>
+<td align="center">ondragover</td>
+<td align="center">应用于目标元素，当停留在目标元素上时调用</td>
+</tr>
+<tr>
+<td align="center">ondrop</td>
+<td align="center">应用于目标元素，当在目标元素上松开鼠标时调用</td>
+</tr>
+<tr>
+<td align="center">ondragleave</td>
+<td align="center">应用于目标元素，当鼠标离开目标元素时调用</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/8%E3%80%81%E5%8D%B3%E6%97%B6%E9%A2%84%E8%A7%88%E5%9B%BE%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="一真">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一真的小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/09/8%E3%80%81%E5%8D%B3%E6%97%B6%E9%A2%84%E8%A7%88%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">八、即时预览图片</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-09 13:35:17 / 修改时间：13:51:31" itemprop="dateCreated datePublished" datetime="2020-09-09T13:35:17+08:00">2020-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="八、即时预览图片"><a href="#八、即时预览图片" class="headerlink" title="八、即时预览图片"></a>八、即时预览图片</h1><h2 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;myFile&quot;</span> <span class="attr">id</span>=<span class="string">&quot;myFile&quot;</span> <span class="attr">onchange</span>=<span class="string">&quot;getFileContent();&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">getFileContent</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// console.log(123);</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> file = <span class="built_in">document</span>.querySelector(<span class="string">&quot;#myFile&quot;</span>).files;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// // reader.readAsDataURL();</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// reader.readAsDataURL(file[0]);</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// console.log(reader.result);//没读完</span></span></span><br><span class="line"><span class="javascript">            reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(reader.result);</span></span><br><span class="line"><span class="javascript">                <span class="built_in">document</span>.querySelector(<span class="string">&quot;img&quot;</span>).src = reader.result;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参数含义"><a href="#参数含义" class="headerlink" title="参数含义"></a>参数含义</h2><table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">reader</td>
+<td align="center">创建文件读取对象</td>
+</tr>
+<tr>
+<td align="center">readAsDataURL</td>
+<td align="center">没有返回值:void；需要传递一个参数(图片及嵌入到文档的文件)；将读取的结果存储在读取对象的result中</td>
+</tr>
+<tr>
+<td align="center">files</td>
+<td align="center">储存在file的数组值</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">FileReader事件模型</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">onabort</td>
+<td align="center">读取文件中断片时触发</td>
+</tr>
+<tr>
+<td align="center">onerror</td>
+<td align="center">读取文件错误时触发</td>
+</tr>
+<tr>
+<td align="center">onload</td>
+<td align="center">读取文件完成时触发</td>
+</tr>
+<tr>
+<td align="center">onloadend</td>
+<td align="center">读取文件完成时触发，不论是否成功</td>
+</tr>
+<tr>
+<td align="center">onloadstart</td>
+<td align="center">开始读取时触发</td>
+</tr>
+<tr>
+<td align="center">onprogress</td>
+<td align="center">读取文件过程中持续触发</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/7%E3%80%81%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="一真">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一真的小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/09/7%E3%80%81%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">七、网络接口</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-09 01:41:17 / 修改时间：01:53:16" itemprop="dateCreated datePublished" datetime="2020-09-09T01:41:17+08:00">2020-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="七、网络接口"><a href="#七、网络接口" class="headerlink" title="七、网络接口"></a>七、网络接口</h1><h2 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 1.ononline:网络连通时候触发这个事件</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.addEventListener(<span class="string">&quot;online&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">&quot;网络连通了&quot;</span>)</span></span><br><span class="line">        &#125;);</span><br><span class="line"><span class="javascript">        <span class="comment">// 2.onoffline:网络断开时触发</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.addEventListener(<span class="string">&quot;offline&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="string">&quot;网络断开了&quot;</span>)</span></span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参数含义"><a href="#参数含义" class="headerlink" title="参数含义"></a>参数含义</h2><table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">addEventListener</td>
+<td align="center">设定一个事件监听器，当某一事件发生通过设定的参数执行操作</td>
+</tr>
+<tr>
+<td align="center">“online”</td>
+<td align="center">网络连通时候触发这个事件</td>
+</tr>
+<tr>
+<td align="center">“offline”</td>
+<td align="center">网络断开时触发</td>
+</tr>
+<tr>
+<td align="center">function</td>
+<td align="center">事件触发后调用的函数</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/6%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="一真">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一真的小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/09/6%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">六、自定义属性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-09 01:40:17" itemprop="dateCreated datePublished" datetime="2020-09-09T01:40:17+08:00">2020-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-11 16:15:07" itemprop="dateModified" datetime="2020-09-11T16:15:07+08:00">2020-09-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -211,19 +779,7 @@
 </thead>
 <tbody><tr>
 <td align="center">p</td>
-<td align="center">会自动在其前后创建一些空白。浏览器会自动添加这些空间</td>
-</tr>
-<tr>
-<td align="center">data-school-name</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">data-name</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">p.dataset</td>
-<td align="center"></td>
+<td align="center">会自动在其前后创建一些空白,浏览器会自动添加这些空间</td>
 </tr>
 </tbody></table>
 
@@ -245,7 +801,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/5/">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/5%E3%80%81%E7%B1%BB%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -259,7 +815,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/09/5/" class="post-title-link" itemprop="url">五、类样式操作</a>
+            <a href="/2020/09/09/5%E3%80%81%E7%B1%BB%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">五、类样式操作</a>
         </h2>
 
         <div class="post-meta">
@@ -393,7 +949,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/4/">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/4%E3%80%81%E8%8E%B7%E5%8F%96dom%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -407,7 +963,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/09/4/" class="post-title-link" itemprop="url">四、获取dom元素</a>
+            <a href="/2020/09/09/4%E3%80%81%E8%8E%B7%E5%8F%96dom%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">四、获取dom元素</a>
         </h2>
 
         <div class="post-meta">
@@ -550,7 +1106,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/3/">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/3%E3%80%81%E5%A4%9A%E5%AA%92%E4%BD%93%E6%A0%87%E7%AD%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -564,7 +1120,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/09/3/" class="post-title-link" itemprop="url">三、多媒体标签</a>
+            <a href="/2020/09/09/3%E3%80%81%E5%A4%9A%E5%AA%92%E4%BD%93%E6%A0%87%E7%AD%BE/" class="post-title-link" itemprop="url">三、多媒体标签</a>
         </h2>
 
         <div class="post-meta">
@@ -664,7 +1220,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/2/">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/2%E3%80%81%E8%A1%A8%E5%8D%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -678,7 +1234,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/09/2/" class="post-title-link" itemprop="url">二、表单</a>
+            <a href="/2020/09/09/2%E3%80%81%E8%A1%A8%E5%8D%95/" class="post-title-link" itemprop="url">二、表单</a>
         </h2>
 
         <div class="post-meta">
@@ -945,128 +1501,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/09/1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="一真">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一真的小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/09/1/" class="post-title-link" itemprop="url">一、语义标签</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-09-09 01:35:17 / 修改时间：01:51:54" itemprop="dateCreated datePublished" datetime="2020-09-09T01:35:17+08:00">2020-09-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、语义标签"><a href="#一、语义标签" class="headerlink" title="一、语义标签"></a>一、语义标签</h1><h2 id="1、html5标签"><a href="#1、html5标签" class="headerlink" title="1、html5标签"></a>1、html5标签</h2><table>
-<thead>
-<tr>
-<th align="center">写法</th>
-<th align="center">参数含义</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">nav</td>
-<td align="center">表示导航</td>
-<td><nav>导航<nav></td>
-</tr>
-<tr>
-<td align="center">header</td>
-<td align="center">表示页眉</td>
-<td><header>头部<header></td>
-</tr>
-<tr>
-<td align="center">main</td>
-<td align="center">文档主要内容</td>
-<td><main></td>
-</tr>
-<tr>
-<td align="center">article</td>
-<td align="center">文章</td>
-<td><article>左</article></td>
-</tr>
-<tr>
-<td align="center">aside</td>
-<td align="center">主题内容之外</td>
-<td><aside>右</aside> </main></td>
-</tr>
-<tr>
-<td align="center">footer</td>
-<td align="center">文档或页的页脚</td>
-<td><footer>底部</footer></td>
-</tr>
-</tbody></table>
-<h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">     <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">        *&#123;</span><br><span class="line">            padding: 0;</span><br><span class="line">            margin: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        header&#123;</span><br><span class="line"><span class="css">            <span class="selector-tag">width</span><span class="selector-pseudo">:100</span>%;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">height</span><span class="selector-pseudo">:100px</span>;</span></span><br><span class="line">            background-color: red;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>ie 9以下行级元素转换为块级元素</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">display:block;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>ie 8 以下不支持html5</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.createElement(<span class="string">&quot;header&quot;</span>)</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1132,7 +1570,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

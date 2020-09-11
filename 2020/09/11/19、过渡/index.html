@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yizhen21.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="十九、过渡通过过渡transition，我们可以在不使用IFlash 动画或JavaScript的情况下，当元素从一种样式变换为另一种样式时为元素添加效果.要实现这一点，必须规定两项内容： 1.规定希望把效果添加到哪个CSS属性上， 2.规定效果的时长 语法 transition: property duration timing-function delay;  样式12345678910111">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十九、过渡">
+<meta property="og:url" content="https://yizhen21.github.io/2020/09/11/19%E3%80%81%E8%BF%87%E6%B8%A1/index.html">
+<meta property="og:site_name" content="一真的小站">
+<meta property="og:description" content="十九、过渡通过过渡transition，我们可以在不使用IFlash 动画或JavaScript的情况下，当元素从一种样式变换为另一种样式时为元素添加效果.要实现这一点，必须规定两项内容： 1.规定希望把效果添加到哪个CSS属性上， 2.规定效果的时长 语法 transition: property duration timing-function delay;  样式12345678910111">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-11T09:07:07.000Z">
+<meta property="article:modified_time" content="2020-09-11T09:07:08.698Z">
+<meta property="article:author" content="一真">
+<meta property="article:tag" content="html">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yizhen21.github.io/2020/09/11/19%E3%80%81%E8%BF%87%E6%B8%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>十九、过渡 | 一真的小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">一真的小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">鳶飛魚躍，無處不是化境。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yizhen21.github.io/2020/09/11/19%E3%80%81%E8%BF%87%E6%B8%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="一真">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一真的小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          十九、过渡
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-11 17:07:07 / 修改时间：17:07:08" itemprop="dateCreated datePublished" datetime="2020-09-11T17:07:07+08:00">2020-09-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="十九、过渡"><a href="#十九、过渡" class="headerlink" title="十九、过渡"></a>十九、过渡</h1><p>通过过渡transition，我们可以在不使用IFlash 动画或JavaScript的情况下，当元素从一种样式变换为另一种样式时为元素添加效果.要实现这一点，必须规定两项内容：</p>
+<p>1.规定希望把效果添加到哪个CSS属性上，</p>
+<p>2.规定效果的时长</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><blockquote>
+<p>transition: property duration timing-function delay;</p>
+</blockquote>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">               * &#123;</span><br><span class="line">            padding: 0;</span><br><span class="line">            margin: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        div &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: red;</span><br><span class="line">            position: absolute;</span><br><span class="line">            left: 100px;</span><br><span class="line">            top: 100px;</span><br><span class="line"><span class="css">            <span class="comment">/* 添加过渡效果：过渡效果执行完毕之后，默认会还原到原始状态*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*1.transition-property：添加过渡效果的样式属性名称*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/* transition-property: left; */</span></span></span><br><span class="line"><span class="css">            <span class="comment">/* 2.transition-duration：过渡效果的耗时I以秒做为单位/ */</span></span></span><br><span class="line"><span class="css">            <span class="comment">/* transition-duration: 2s; */</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*3.transition-timing-function：设置时间函数--控制运动的速度*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*transition-timing-function:linear；*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*4.transition-delay：过渡效果的延迟*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*transition-delay：2s；*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*简写：transition：属性名称过渡时间时间函数延迟*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/* transition: left 2s linear 0s; */</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*为多个样式同时添加过渡效果*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/* transition: left 2s linear 0s, background-color 5s linear 0s; */</span></span></span><br><span class="line">            /* 为所有样式添加过渡效果 all:所有 </span><br><span class="line">            1.所有样式的过渡效果一样</span><br><span class="line">            2.效率低下，会去查询所有添加的样式</span><br><span class="line">            3.建议不用*/</span><br><span class="line">            transition: all 2s</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="css">        <span class="selector-tag">div</span><span class="selector-pseudo">:active</span> &#123;</span></span><br><span class="line">            left: 1000px;</span><br><span class="line">            background-color: blue;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">property</td>
+<td align="center">规定设置过度效果的CSS属性的名称</td>
+</tr>
+<tr>
+<td align="center">duration</td>
+<td align="center">规定完成过渡效果需要多少秒或毫秒</td>
+</tr>
+<tr>
+<td align="center">timing-function</td>
+<td align="center">规定速度效果的速度曲线</td>
+</tr>
+<tr>
+<td align="center">delay</td>
+<td align="center">定义过渡效果何时开始</td>
+</tr>
+</tbody></table>
+<h3 id="补充参数"><a href="#补充参数" class="headerlink" title="补充参数"></a>补充参数</h3><p>补充说明 tansition-timing-function：属性规定过渡效果的速度曲线</p>
+<table>
+<thead>
+<tr>
+<th align="center">对象</th>
+<th align="center">定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">linear</td>
+<td align="center">规定以相同速度开始至结束的过渡效果（等于 cubic-bezier（0，0，1，1）</td>
+</tr>
+<tr>
+<td align="center">ease</td>
+<td align="center">规定慢速开始，然后变快，然后慢速结束的过渡效果（cubic-bezier（0.25，0.1，0.25，1））</td>
+</tr>
+<tr>
+<td align="center">ease-in</td>
+<td align="center">规定以慢速开始的过渡效果（等于 cubic-bezier（0.42，0，1，1））</td>
+</tr>
+<tr>
+<td align="center">ease-out</td>
+<td align="center">规定以慢速结束的过渡效果（等于 cubic-bezier（0，0，0.58，1））</td>
+</tr>
+<tr>
+<td align="center">ease-in-out</td>
+<td align="center">规定以慢速开始和结束的过渡效果（等于 cubic-bezier（0.42，0，0.58，1））</td>
+</tr>
+<tr>
+<td align="center">cubic-bezier(n,n,n,n)</td>
+<td align="center">在cubic-bezier函数中定义自己的值。可能的值是0至1之间的数值。</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/html/" rel="tag"># html</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/11/18%E3%80%81%E8%BE%B9%E6%A1%86%E5%9B%BE%E7%89%87/" rel="prev" title="十八、边框图片">
+      <i class="fa fa-chevron-left"></i> 十八、边框图片
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/11/21%E3%80%81%E4%BA%8C%E7%BB%B4%E5%8F%98%E6%8D%A2/" rel="next" title="二十一、二维变换">
+      二十一、二维变换 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B9%9D%E3%80%81%E8%BF%87%E6%B8%A1"><span class="nav-number">1.</span> <span class="nav-text">十九、过渡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">补充参数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">一真</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一真</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
